@@ -4,7 +4,7 @@ Open a terminal and type the following command
 first
 1.create a new folder and move into that folder
 
-2.git clone -b P4v5 https://github.com/docrho/openclassroom
+2.git clone https://github.com/docrho/P4
 
 3.move to openclassroom folder
 
