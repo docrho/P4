@@ -78,6 +78,7 @@ class Tournament:
 
     def tournament_instance(self, tournament):
         self.rounds_list = []
+        self.tour_number = tournament["tour_number"]
         self.name = tournament["name"]
         self.place = tournament["place"]
         self.date = tournament["date"]
@@ -211,9 +212,9 @@ class Tournament:
                 ),
                 float(round[3])
             ))
-        round_instance = [round_instance,]
+        round_instance = [round_instance, ]
         print(round_instance.__len__())
-        if round_instance.__len__() == 0 :
-            return round_instance
-        else:
+        if self.rounds_list.__len__() == 0:
             return self.rounds_list
+        else:
+            return round_instance

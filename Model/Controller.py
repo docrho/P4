@@ -2,7 +2,7 @@ from Model import View
 from Model.Db import DbManager
 from Model.Player import Player
 from Model.Tournament import Tournament
-
+import json
 
 v = View.Views()
 db = DbManager()
@@ -37,8 +37,8 @@ def launch():
                 tournament.tournament_instance(tournament.get_tournament_by_id(
                     tournament_id)
                 )
-                #if the turn is greatar than 1 bypass
-                if tournament.if_tour_greater_than(1):break
+                # if the turn is greatar than 1 bypass
+                # if tournament.if_tour_greater_than(1):break
 
                 # store starting time
                 tournament.current_tour.start_time.append(
@@ -97,6 +97,7 @@ def launch():
                     tournament.current_tour.end_time.append(
                         tournament.current_tour.current_datetime()
                     )
+                    tournament.tour_number = tournament.tour_number + 1
                     # asking for rank change
                     if v.load_page("do_you_want_modify_rank"):
                         tournament.players = v.load_page(
@@ -237,14 +238,15 @@ def launch():
             # checking if the tournament id exist
             if tournament.tournament_id_checking(tournament_id):
                 # adding tournament from database on tournament instance
-                tournament.tournament_instance(tournament.get_tournament_by_id(
+                tour_data = tournament.get_tournament_by_id(
                     tournament_id)
-                )
             else:
+                print("fail tournament instance")
                 break
-            # deserialising round
-            tournament.deserialise_round_list()
+            for round in tour_data["rounds_list"]:
+                round[0] = json.loads(round[0])
+                round[2] = json.loads(round[2])
             # sending round to view
             v.load_page("display_all_round_or_match_from_tournament",
-                        tournament.rounds_list
+                        tour_data["rounds_list"]
                         )

@@ -54,7 +54,8 @@ class DbManager(TinyDB):
             "time": tournament.time,
             "description": tournament.description,
             "rounds_list": tournament.rounds_list,
-            "tours_list": tournament.tours_list
+            "tours_list": tournament.tours_list,
+            "tour_number": tournament.tour_number
         })
 
     def remove_players(self, lastname, birth_date):
@@ -141,4 +142,7 @@ class DbManager(TinyDB):
             set("rounds_list", rounds_list), doc_ids=[int(id)])
         self.tournament.update(
             set("tours_list", tournament.tours_list), doc_ids=[int(id)])
+        self.tournament.update(
+            set("tour_number", tournament.tour_number), doc_ids=[int(id)]
+        )
         return True

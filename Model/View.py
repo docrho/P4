@@ -1,4 +1,3 @@
-
 class Views:
     def start_match(self):
         print("Type 1 to start match or 0 to leave")
