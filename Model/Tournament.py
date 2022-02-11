@@ -18,8 +18,9 @@ class Tournament:
         self.players = []
         self.time = time
         self.description = description
+        self.tour_number = 0
         # round already played
-        self.rounds_list = []
+        self.rounds_list = list()
         self.current_tour = Tour()
         self.tours_list = []
         self.doc_id = doc_id
@@ -76,11 +77,12 @@ class Tournament:
         return self.all_tournament_list
 
     def tournament_instance(self, tournament):
+        self.rounds_list = []
         self.name = tournament["name"]
         self.place = tournament["place"]
         self.date = tournament["date"]
         self.nb_turn = tournament["nb_turn"]
-        self.rounds_list = tournament["rounds_list"]
+        self.rounds_list = self.rounds_instance(tournament["rounds_list"])
         # deserialising player from databse
         # instancing player
         for player in tournament["players"]:
@@ -164,6 +166,15 @@ class Tournament:
                     pass
         return self.players
 
+    def if_tour_greater_than(self, number):
+        if self.tour_number < number:
+            return False
+        return True
+
+    def calculate_how_many_turn_left(self):
+        turnleft = 4 - self.tour_number
+        return turnleft
+
     def check_if_same_points(self):
         all_point = []
         all_point_set = []
@@ -174,3 +185,35 @@ class Tournament:
             return True
         else:
             return False
+
+    def rounds_instance(self, rounds_data):
+        round_instance = []
+        for round in rounds_data:
+            round[0] = json.loads(round[0])
+            round[2] = json.loads(round[2])
+            round_instance.append((
+                Player(
+                    round[0]["lastname"],
+                    round[0]["first_name"],
+                    round[0]["birth_date"],
+                    round[0]["gender"],
+                    round[0]["ranking"],
+                    round[0]["point"],
+                ),
+                float(round[1]),
+                Player(
+                    round[2]["lastname"],
+                    round[2]["first_name"],
+                    round[2]["birth_date"],
+                    round[2]["gender"],
+                    round[2]["ranking"],
+                    round[2]["point"],
+                ),
+                float(round[3])
+            ))
+        round_instance = [round_instance,]
+        print(round_instance.__len__())
+        if round_instance.__len__() == 0 :
+            return round_instance
+        else:
+            return self.rounds_list

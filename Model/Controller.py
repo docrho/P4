@@ -37,6 +37,9 @@ def launch():
                 tournament.tournament_instance(tournament.get_tournament_by_id(
                     tournament_id)
                 )
+                #if the turn is greatar than 1 bypass
+                if tournament.if_tour_greater_than(1):break
+
                 # store starting time
                 tournament.current_tour.start_time.append(
                     tournament.current_tour.current_datetime()
@@ -55,6 +58,7 @@ def launch():
                 # adding score to match list of tuple
                 tournament.current_tour.add_score_to_match(score)
                 # store current tour on tour list un tournament
+                print(tournament.rounds_list)
                 tournament.store_match_already_played()
                 tournament.adding_score_to_players_instance_from_match()
                 # store end time of turn
@@ -72,9 +76,11 @@ def launch():
                                 db.update_all_data_from_tournament(
                                     tournament_id, tournament)
                                 )
-                # starting second turn and other
 
-                for seq in range(3):
+                # starting second turn and other
+                tournament.tour_number = 1
+
+                for seq in range(tournament.calculate_how_many_turn_left()):
 
                     tournament.sort_player_by_points()
                     if tournament.check_if_same_points():
@@ -95,10 +101,6 @@ def launch():
                     if v.load_page("do_you_want_modify_rank"):
                         tournament.players = v.load_page(
                             "players_modify_rank", tournament.players)
-                    v.load_page("update_all_data_from_tournament",
-                                db.update_all_data_from_tournament(
-                                    tournament_id, tournament)
-                                )
                     if v.load_page("do_you_want_save_tournament"):
                         v.load_page("update_all_data_from_tournament",
                                     db.update_all_data_from_tournament(
