@@ -213,7 +213,6 @@ class Tournament:
                 float(round[3])
             ))
         round_instance = [round_instance, ]
-        print(round_instance.__len__())
         if self.rounds_list.__len__() == 0:
             return self.rounds_list
         else:
