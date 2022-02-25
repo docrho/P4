@@ -37,45 +37,47 @@ def launch():
                 tournament.tournament_instance(tournament.get_tournament_by_id(
                     tournament_id)
                 )
+                #if tour 1 not played
+                if (tournament.rounds_list.__len__() < 1):
+                    print(tournament.rounds_list)
+                    # store starting time
+                    tournament.current_tour.start_time.append(
+                        tournament.current_tour.current_datetime()
+                    )
+                    # show players on console
+                    v.load_page("show_player_on_tournament", tournament)
+                    v.load_page("list_tournament", tournament)
+                    # sort player instance in tournament instance
+                    tournament.sort_player_by_rank()
 
-                # store starting time
-                tournament.current_tour.start_time.append(
-                    tournament.current_tour.current_datetime()
-                )
-                # show players on console
-                v.load_page("show_player_on_tournament", tournament)
-                v.load_page("list_tournament", tournament)
-                # sort player instance in tournament instance
-                tournament.sort_player_by_rank()
+                    # starting first tour with player instance from tournament
+                    tournament.current_tour.tour1(tournament.players)
+                    # ask view to type score of the first tour
+                    score = v.load_page("add_score_to_match",
+                                        tournament.current_tour.match_list)
+                    # adding score to match list of tuple
+                    tournament.current_tour.add_score_to_match(score)
+                    # store current tour on tour list un tournament
+                    tournament.store_match_already_played()
+                    tournament.adding_score_to_players_instance_from_match()
+                    # store end time of turn
+                    tournament.current_tour.end_time.append(
+                        tournament.current_tour.current_datetime()
+                    )
+                    # asking for rank change
+                    if v.load_page("do_you_want_modify_rank"):
+                        tournament.players = v.load_page(
+                            "players_modify_rank", tournament.players)
+                    ###############################
+                    # asking for saving tournament score in actual state
+                    if v.load_page("do_you_want_save_tournament"):
+                        v.load_page("update_all_data_from_tournament",
+                                    db.update_all_data_from_tournament(
+                                        tournament_id, tournament)
+                                    )
 
-                # starting first tour with player instance from tournament
-                tournament.current_tour.tour1(tournament.players)
-                # ask view to type score of the first tour
-                score = v.load_page("add_score_to_match",
-                                    tournament.current_tour.match_list)
-                # adding score to match list of tuple
-                tournament.current_tour.add_score_to_match(score)
-                # store current tour on tour list un tournament
-                tournament.store_match_already_played()
-                tournament.adding_score_to_players_instance_from_match()
-                # store end time of turn
-                tournament.current_tour.end_time.append(
-                    tournament.current_tour.current_datetime()
-                )
-                # asking for rank change
-                if v.load_page("do_you_want_modify_rank"):
-                    tournament.players = v.load_page(
-                        "players_modify_rank", tournament.players)
-                ###############################
-                # asking for saving tournament score in actual state
-                if v.load_page("do_you_want_save_tournament"):
-                    v.load_page("update_all_data_from_tournament",
-                                db.update_all_data_from_tournament(
-                                    tournament_id, tournament)
-                                )
-
-                # starting second turn and other
-                tournament.tour_number = 1
+                    # starting second turn and other
+                    tournament.tour_number = 1
 
                 for seq in range(tournament.calculate_how_many_turn_left()):
 
