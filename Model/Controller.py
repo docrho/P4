@@ -38,8 +38,9 @@ def launch():
                     tournament_id)
                 )
                 #if tour 1 not played
-                if (tournament.rounds_list.__len__() < 1):
-                    print(tournament.rounds_list)
+                tournament.tour_number = tournament.rounds_list[0].__len__()
+                tournament.tour_number = int(tournament.tour_number / 4)
+                if (tournament.tour_number < 1):
                     # store starting time
                     tournament.current_tour.start_time.append(
                         tournament.current_tour.current_datetime()
@@ -77,9 +78,7 @@ def launch():
                                     )
 
                     # starting second turn and other
-                    tournament.tour_number = 1
-
-                for seq in range(tournament.calculate_how_many_turn_left()):
+                for seq in range(4 - tournament.tour_number):
 
                     tournament.sort_player_by_points()
                     if tournament.check_if_same_points():
@@ -96,7 +95,6 @@ def launch():
                     tournament.current_tour.end_time.append(
                         tournament.current_tour.current_datetime()
                     )
-                    tournament.tour_number = tournament.tour_number + 1
                     # asking for rank change
                     if v.load_page("do_you_want_modify_rank"):
                         tournament.players = v.load_page(
@@ -243,9 +241,7 @@ def launch():
                 # adding tournament from database on tournament instance
                 tour_data = tournament.get_tournament_by_id(
                     tournament_id)
-                print(tour_data['rounds_list'])
             else:
-                print("fail tournament instance")
                 break
             for round in tour_data["rounds_list"]:
                 round[0] = json.loads(round[0])
