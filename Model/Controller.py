@@ -37,7 +37,7 @@ def launch():
                 tournament.tournament_instance(tournament.get_tournament_by_id(
                     tournament_id)
                 )
-                #if tour 1 not played
+                # if tour 1 not played
                 tournament.tour_number = tournament.rounds_list[0].__len__()
                 tournament.tour_number = int(tournament.tour_number / 4)
                 if (tournament.tour_number < 1):
