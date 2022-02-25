@@ -40,6 +40,7 @@ def launch():
                 # if tour 1 not played
                 tournament.tour_number = tournament.rounds_list[0].__len__()
                 tournament.tour_number = int(tournament.tour_number / 4)
+                print(tournament.tour_number)
                 if (tournament.tour_number < 1):
                     # store starting time
                     tournament.current_tour.start_time.append(
@@ -76,8 +77,10 @@ def launch():
                                     db.update_all_data_from_tournament(
                                         tournament_id, tournament)
                                     )
+                    tournament.tour_number += 1
 
                     # starting second turn and other
+
                 for seq in range(4 - tournament.tour_number):
 
                     tournament.sort_player_by_points()
