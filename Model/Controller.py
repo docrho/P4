@@ -37,8 +37,6 @@ def launch():
                 tournament.tournament_instance(tournament.get_tournament_by_id(
                     tournament_id)
                 )
-                # if the turn is greatar than 1 bypass
-                # if tournament.if_tour_greater_than(1):break
 
                 # store starting time
                 tournament.current_tour.start_time.append(
@@ -58,7 +56,6 @@ def launch():
                 # adding score to match list of tuple
                 tournament.current_tour.add_score_to_match(score)
                 # store current tour on tour list un tournament
-                print(tournament.rounds_list)
                 tournament.store_match_already_played()
                 tournament.adding_score_to_players_instance_from_match()
                 # store end time of turn
@@ -107,6 +104,10 @@ def launch():
                                     db.update_all_data_from_tournament(
                                         tournament_id, tournament)
                                     )
+                v.load_page("update_all_data_from_tournament",
+                            db.update_all_data_from_tournament(
+                                tournament_id, tournament)
+                            )
 
         elif responsemenu == "2":  # create new tournament
             tournament = Tournament()
@@ -240,6 +241,7 @@ def launch():
                 # adding tournament from database on tournament instance
                 tour_data = tournament.get_tournament_by_id(
                     tournament_id)
+                print(tour_data['rounds_list'])
             else:
                 print("fail tournament instance")
                 break
