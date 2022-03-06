@@ -35,7 +35,8 @@ Then
 ########To generate a Flake8 html rapport#####
 1.make sure your environement is activated
 2. got to openclassroom folder
-3. go to "Model"folder and execute this command flake8 --format=html --htmldir=flake-report *.py
+3. go to "Model"folder and execute this command "flake8 --format=html --htmldir=flake-report *.py"
+3.1 repeat this step with the View folder and Controller folder
 5. The rapport is on the folder alled flake-report
 
 Please make sur to install all packet needed !!

@@ -1,3 +1,3 @@
-from Model.Controller import launch
+from Controller.Controller import launch
 
 game = launch()
