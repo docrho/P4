@@ -16,7 +16,7 @@ class Controller:
         self.player = Player()
         self.tournament_id = int()
         self.score = float
-    
+
     def home(self):
         self.v.load_page("home")
         self.response = str(input())
@@ -98,8 +98,8 @@ class Controller:
             else:
                 pass
             self.tournament.current_tour.tour2(self.tournament.players)
-            self.score = self.v.load_page("add_score_to_match",
-                                    self.tournament.current_tour.match_list)
+            self.score = self.v.load_page(
+                "add_score_to_match", self.tournament.current_tour.match_list)
             self.tournament.current_tour.add_score_to_match(self.score)
             self.tournament.store_match_already_played()
             self.tournament.adding_score_to_players_instance_from_match()
@@ -195,7 +195,8 @@ class Controller:
     def update_tournament(self):
         self.tournament = Tournament()
         # store the response on variable tournament_id
-        self.tournament_id = int(self.v.load_page("_update_tournament_menu_prompt"))
+        self.tournament_id = int(
+            self.v.load_page("_update_tournament_menu_prompt"))
         # checking if the tournament id exist
         if self.tournament.tournament_id_checking(self.tournament_id):
             # adding tournament from database on tournament instance
@@ -239,7 +240,8 @@ class Controller:
         self.v.load_page("list_tournament",
                          self.tournament.all_tournament_list)
         print('choose the tournament id')
-        self.tournament_id = int(self.v.load_page("_update_tournament_menu_prompt"))
+        self.tournament_id = int(
+            self.v.load_page("_update_tournament_menu_prompt"))
         # checking if the tournament id exist
         if self.tournament.tournament_id_checking(self.tournament_id):
             # adding tournament from database on tournament instance
@@ -254,7 +256,8 @@ class Controller:
         self.player = Player()
         # store the response on variable tournament_id
 
-        self.tournament_id = int(self.v.load_page("_update_tournament_menu_prompt"))
+        self.tournament_id = int(self.v.load_page(
+            "_update_tournament_menu_prompt"))
         # checking if the tournament id exist
         if self.tournament.tournament_id_checking(self.tournament_id):
             # adding tournament from database on tournament instance
@@ -284,7 +287,7 @@ class Controller:
                         if self.secondTolastTurn() is not True:
                             print("error")
                     else:
-                        #do second turn anyway
+                        # do second turn anyway
                         if self.secondTolastTurn() is not True:
                             print("error")
                 else:
