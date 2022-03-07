@@ -1,3 +1,5 @@
-from Controller.Controller import launch
+from Controller.Controller import Controller
 
-game = launch()
+
+c = Controller()
+game = c.launch()
